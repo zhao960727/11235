@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyf.dao.GsDao">
+	
+	
+	<update id="upd">
+	
+		UPDATE tb_gsnj SET cnj=#{cnj},czt=#{czt},cbz=#{cbz} WHERE cid=#{cid}
+	</update>
+	
+	<select id="selectById" resultType="com.zyf.entity.Gongsi">
+		SELECT * FROM tb_gsnj WHERE cid=#{cid}
+	</select>
+	
+	<select id="selectAll" resultType="com.zyf.entity.Gongsi">
+		SELECT * FROM tb_gsnj
+		<where>
+			<if test="keywords!=null and keywords!=''">and keywords LIKE CONCAT('%',#{keywords},'%')</if>
+			<if test="description!=null and description!=''">and description LIKE CONCAT('%',#{description},'%')</if>
+			<if test="cname!=null and cname!=''">and cname LIKE CONCAT('%',#{cname},'%')</if>
+			<if test="zcBegin!=null and zcBegin!='' and zcend!=null and zcend!=''">and czb BETWEEN  #{zcBegin}  AND  #{zcend}</if>
+			<if test="clBegin!=null and clBegin!='' and clend!=null and clend!=''">and ccl BETWEEN  #{clBegin}  AND  #{clend}</if>
+		</where>
+	</select>
+</mapper>
